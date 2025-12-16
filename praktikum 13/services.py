@@ -18,6 +18,13 @@ class CashPayment(IPaymentProcessor):
         LOGGER.info(f"Menerima TUNAI sejumlah: Rp{amount:,.0f}")
         return True
 
+# --- IMPLEMENTASI PEMBAYARAN DEBIT (CHALLENGE OCP/DIP) ---
+class DebitCardPayment(IPaymentProcessor):
+    def process(self, amount: float) -> bool:
+        LOGGER.info(f"Memproses pembayaran DEBIT sejumlah: Rp{amount:,.0f}")
+        LOGGER.info("Silakan masukkan kartu debit dan PIN.")
+        return True
+
 # --- SERVICE KERANJANG BELANJA (Logika Inti Bisnis) ---
 class ShoppingCart:
     """Mengelola item, kuantitas, dan total harga pesanan (SRP)."""

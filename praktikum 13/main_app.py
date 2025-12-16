@@ -1,7 +1,7 @@
 # main_app.py
 import logging
 from repositories import ProductRepository
-from services import IPaymentProcessor, ShoppingCart, CashPayment
+from services import IPaymentProcessor, ShoppingCart, CashPayment, DebitCardPayment
 from models import Product  # Diperlukan untuk type hint di _handle_add_item
 
 LOGGER = logging.getLogger('MAIN_APP')
@@ -33,7 +33,8 @@ class PosApp:
 
         try:
             quantity = int(input("Jumlah (default 1): ") or "1")
-            if quantity <= 0: raise ValueError
+            if quantity <= 0:
+                raise ValueError
             self.cart.add_item(product, quantity)
         except ValueError:
             LOGGER.error("Jumlah tidak valid.")
@@ -65,18 +66,22 @@ class PosApp:
 # --- TITIK MASUK UTAMA (Orchestration) ---
 if __name__ == "__main__":
     # Setup Logging awal
-    logging.basicConfig(level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(name)s - %(levelname)s - %(message)s'
+    )
 
     # 1. Instantiate Lapisan Data
     repo = ProductRepository()
 
     # 2. Instantiate Service (Implementasi Konkret)
-    payment_method = CashPayment()
+    # DIGANTI SESUAI CHALLENGE OCP/DIP
+    payment_method = DebitCardPayment()
 
     # 3. Inject Dependencies ke Aplikasi Utama
     app = PosApp(repository=repo, payment_processor=payment_method)
 
-    # Tambahkan loop CLI sederhana untuk interaksi
+    # Loop CLI sederhana
     while True:
         print("\nMenu:")
         print("1. Tampilkan Produk")
