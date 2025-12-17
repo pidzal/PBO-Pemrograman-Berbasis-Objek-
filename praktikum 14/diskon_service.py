@@ -6,7 +6,7 @@ class DiskonCalculator:
 
     def hitung_diskon(self, harga_awal: float, persentase_diskon: int) -> float:
 
-        pdb.set_trace()  # <-- Untuk Debugging: Tempatkan di sini
+        # pdb.set_trace()  # <-- Untuk Debugging: Tempatkan di sini
 
         # --- BUG LOGIKA DISINI ---
         # Persentase tidak dibagi 100, sehingga diskon 10% dihitung sebagai 1000%
